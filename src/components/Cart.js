@@ -11,7 +11,7 @@ const Cart = () => {
   const [total, setTotal] = useState();
 
   useEffect(() => {
-    setTotal(
+    setTotal( 
       cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
     );
   }, [cart]);

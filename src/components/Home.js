@@ -5,6 +5,7 @@ import SingleProduct from "./SingleProduct";
 const Home = () => {
   const {
     state: { products },
+    // productState: { byStock },
   } = CartState();
 
   return (
