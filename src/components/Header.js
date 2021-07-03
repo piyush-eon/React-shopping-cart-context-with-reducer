@@ -5,23 +5,38 @@ import {
   Button,
   Container,
   Dropdown,
+  FormControl,
   Nav,
   Navbar,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { CartState } from "../Context";
+import { Link, useLocation } from "react-router-dom";
+import { CartState } from "../context/Context";
 import "./styles.css";
 
 const Header = () => {
-  const { cart, setCart } = CartState();
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
 
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar bg="dark" variant="dark" style={{ height: 80 }}>
       <Container>
         <Navbar.Brand>
           <Link to="/">Shopping Cart</Link>
         </Navbar.Brand>
-        <Nav className="ml-auto">
+        {useLocation().pathname.split("/")[1] !== "cart" && (
+          <Navbar.Text>
+            <FormControl
+              style={{ width: 500 }}
+              type="search"
+              placeholder="Search a product..."
+              className="m-auto"
+              aria-label="Search"
+            />
+          </Navbar.Text>
+        )}
+        <Nav>
           <Dropdown alignRight>
             <Dropdown.Toggle variant="success">
               <FaShoppingCart color="white" fontSize="25px" />
@@ -31,17 +46,25 @@ const Header = () => {
             <Dropdown.Menu style={{ minWidth: 400 }}>
               {cart.length > 0 ? (
                 <>
-                  {cart.map((c) => (
-                    <span className="cartitem" key={c.key}>
-                      <img src={c.image} className="cartItemImg" alt={c.name} />
+                  {cart.map((prod) => (
+                    <span className="cartitem" key={prod.id}>
+                      <img
+                        src={prod.image}
+                        className="cartItemImg"
+                        alt={prod.name}
+                      />
                       <div className="cartItemDetail">
-                        <span>{c.name}</span>
-                        <span>₹ {c.price.split(".")[0]}</span>
+                        <span>{prod.name}</span>
+                        <span>₹ {prod.price.split(".")[0]}</span>
                       </div>
                       <AiFillDelete
                         fontSize="20px"
+                        style={{ cursor: "pointer" }}
                         onClick={() =>
-                          setCart(cart.filter((car) => car.id !== c.id))
+                          dispatch({
+                            type: "REMOVE_FROM_CART",
+                            payload: prod,
+                          })
                         }
                       />
                     </span>

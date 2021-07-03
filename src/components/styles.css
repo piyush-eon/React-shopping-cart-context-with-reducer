@@ -1,3 +1,5 @@
+/* header styles */
+
 .header {
   display: block;
   text-align: center;
@@ -27,6 +29,8 @@
   flex-direction: column;
 }
 
+/* Home Page */
+
 .home {
   display: flex;
 }
@@ -39,7 +43,7 @@
   flex-direction: column;
   width: 20%;
   margin: 10px;
-  height: 90vh;
+  height: 86vh;
 }
 
 .filters > span {

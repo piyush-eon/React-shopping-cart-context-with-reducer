@@ -1,9 +1,11 @@
-import { CartState } from "../Context";
+import { CartState } from "../context/Context";
 import Filters from "./Filters";
 import SingleProduct from "./SingleProduct";
 
 const Home = () => {
-  const { products } = CartState();
+  const {
+    state: { products },
+  } = CartState();
 
   return (
     <div className="home">

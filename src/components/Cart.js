@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Image, ListGroup, Row } from "react-bootstrap";
 import { AiFillDelete } from "react-icons/ai";
-import { CartState } from "../Context";
+import { CartState } from "../context/Context";
 
 const Cart = () => {
-  const { cart, setCart } = CartState();
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
   const [total, setTotal] = useState();
 
   useEffect(() => {
-    setTotal(cart.reduce((acc, curr) => acc + Number(curr.price), 0));
+    setTotal(
+      cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
+    );
   }, [cart]);
 
   return (
@@ -29,7 +34,15 @@ const Cart = () => {
                   <Form.Control
                     as="select"
                     value={prod.qty}
-                    onChange={(e) => console.log(e.target.value)}
+                    onChange={(e) =>
+                      dispatch({
+                        type: "CHANGE_CART_QTY",
+                        payload: {
+                          id: prod.id,
+                          qty: e.target.value,
+                        },
+                      })
+                    }
                   >
                     {[...Array(prod.inStock).keys()].map((x) => (
                       <option key={x + 1}>{x + 1}</option>
@@ -41,7 +54,10 @@ const Cart = () => {
                     type="button"
                     variant="light"
                     onClick={() =>
-                      setCart(cart.filter((c) => c.id !== prod.id))
+                      dispatch({
+                        type: "REMOVE_FROM_CART",
+                        payload: prod,
+                      })
                     }
                   >
                     <AiFillDelete fontSize="20px" />

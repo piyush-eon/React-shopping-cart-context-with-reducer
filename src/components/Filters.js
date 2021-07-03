@@ -1,24 +1,64 @@
-import { Button } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Form } from "react-bootstrap";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 const Filters = () => {
+  const [rating, setRating] = useState(0);
+
   return (
     <div className="filters">
-      <span className="title">Filters Products</span>
+      <span className="title">Filter Products</span>
       <span>
-        <input type="radio" id="ascending" name="sort" value="ascending" />
-        <label htmlFor="ascending">Ascending</label>
+        <Form.Check
+          inline
+          label="Ascending"
+          name="group1"
+          type="radio"
+          id={`inline-1`}
+        />
       </span>
       <span>
-        <input type="radio" id="descending" name="sort" value="descending" />
-        <label htmlFor="descending">Descending</label>
+        <Form.Check
+          inline
+          label="Descending"
+          name="group1"
+          type="radio"
+          id={`inline-2`}
+        />
       </span>
       <span>
-        <input type="checkbox" id="stock" name="stock" value="Bike" />
-        <label htmlFor="stock">Include Out of Stock</label>
+        <Form.Check
+          inline
+          label="Include Out of Stock"
+          name="group1"
+          type="checkbox"
+          id={`inline-3`}
+        />
       </span>
       <span>
-        <input type="checkbox" id="delivery" name="delivery" value="Bike" />
-        <label htmlFor="delivery">Fast Delivery Only</label>
+        <Form.Check
+          inline
+          label="Fast Delivery Only"
+          name="group1"
+          type="checkbox"
+          id={`inline-4`}
+        />
+      </span>
+      <span>
+        <label style={{ paddingRight: 10 }}>Rating: </label>
+        {[...Array(5)].map((_, i) => (
+          <span
+            key={i}
+            onClick={() => setRating(i + 1)}
+            style={{ cursor: "pointer" }}
+          >
+            {rating > i ? (
+              <AiFillStar fontSize="20px" />
+            ) : (
+              <AiOutlineStar fontSize="20px" />
+            )}
+          </span>
+        ))}
       </span>
       <Button variant="light">Clear Filters</Button>
     </div>
