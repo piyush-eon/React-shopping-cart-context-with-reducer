@@ -5,7 +5,7 @@ import SingleProduct from "./SingleProduct";
 const Home = () => {
   const {
     state: { products },
-    productState: { sort, byStock, byFastDelivery, byRating },
+    productState: { sort, byStock, byFastDelivery, byRating, searchQuery },
   } = CartState();
 
   const transformProducts = () => {
@@ -28,6 +28,12 @@ const Home = () => {
     if (byRating) {
       sortedProducts = sortedProducts.filter(
         (prod) => prod.ratings >= byRating
+      );
+    }
+
+    if (searchQuery) {
+      sortedProducts = sortedProducts.filter((prod) =>
+        prod.name.toLowerCase().includes(searchQuery)
       );
     }
 

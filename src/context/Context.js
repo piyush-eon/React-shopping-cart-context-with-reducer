@@ -25,6 +25,7 @@ const Context = ({ children }) => {
     byStock: false,
     byFastDelivery: false,
     byRating: 0,
+    searchQuery: "",
   });
 
   console.log(productState);
