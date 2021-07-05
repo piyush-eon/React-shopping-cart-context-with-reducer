@@ -1,5 +1,6 @@
 import { Card, Button } from "react-bootstrap";
 import { CartState } from "../context/Context";
+import Rating from "./Rating";
 
 const SingleProduct = ({ prod }) => {
   const {
@@ -20,6 +21,7 @@ const SingleProduct = ({ prod }) => {
             ) : (
               <div>4 days delivery</div>
             )}
+            <Rating rating={prod.ratings} />
           </Card.Subtitle>
           {cart.some((p) => p.id === prod.id) ? (
             <Button

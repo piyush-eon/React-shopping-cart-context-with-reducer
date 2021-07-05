@@ -1,6 +1,6 @@
 import { Button, Form } from "react-bootstrap";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { CartState } from "../context/Context";
+import Rating from "./Rating";
 
 const Filters = () => {
   const {
@@ -77,24 +77,16 @@ const Filters = () => {
       </span>
       <span>
         <label style={{ paddingRight: 10 }}>Rating: </label>
-        {[...Array(5)].map((_, i) => (
-          <span
-            key={i}
-            onClick={() =>
-              productDispatch({
-                type: "FILTER_BY_RATING",
-                payload: i + 1,
-              })
-            }
-            style={{ cursor: "pointer" }}
-          >
-            {byRating > i ? (
-              <AiFillStar fontSize="20px" />
-            ) : (
-              <AiOutlineStar fontSize="20px" />
-            )}
-          </span>
-        ))}
+        <Rating
+          rating={byRating}
+          onClick={(i) =>
+            productDispatch({
+              type: "FILTER_BY_RATING",
+              payload: i + 1,
+            })
+          }
+          style={{ cursor: "pointer" }}
+        />
       </span>
       <Button
         variant="light"
