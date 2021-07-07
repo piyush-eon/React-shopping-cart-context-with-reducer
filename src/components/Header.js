@@ -27,7 +27,7 @@ const Header = () => {
           <Link to="/">Shopping Cart</Link>
         </Navbar.Brand>
         {useLocation().pathname.split("/")[1] !== "cart" && (
-          <Navbar.Text>
+          <Navbar.Text className="search">
             <FormControl
               style={{ width: 500 }}
               type="search"
@@ -50,7 +50,7 @@ const Header = () => {
               <Badge>{cart.length}</Badge>
             </Dropdown.Toggle>
 
-            <Dropdown.Menu style={{ minWidth: 400 }}>
+            <Dropdown.Menu style={{ minWidth: 370 }}>
               {cart.length > 0 ? (
                 <>
                   {cart.map((prod) => (
